@@ -7,6 +7,7 @@ class SliderPage extends StatefulWidget {
 
 class _SliderPageState extends State<SliderPage> {
   double _valorSlider=100.0;
+  bool _bloquearCheck = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +19,8 @@ class _SliderPageState extends State<SliderPage> {
         child: Column(
           children: <Widget>[
             _crearSlider(),
+            _checkBox(),
+            _crearSwitch(),
             Expanded(
               child: _crearImagen()
               )
@@ -35,7 +38,7 @@ class _SliderPageState extends State<SliderPage> {
       value: _valorSlider, 
       min: 10.0,
       max: 400.0,
-      onChanged: (valor){
+      onChanged: (!_bloquearCheck) ? null : (valor){
         setState(() {
           _valorSlider = valor;
           
@@ -49,6 +52,31 @@ class _SliderPageState extends State<SliderPage> {
       image: NetworkImage('https://i.ytimg.com/vi/sFbt7Icd9RI/maxresdefault.jpg'),
       width: _valorSlider,
       fit: BoxFit.contain,
+      );
+  }
+
+  Widget _checkBox() {
+    //return Checkbox(  ----- Esta forma no llevria el title, solo es la cajita sin mas
+    return CheckboxListTile(
+      title: Text('Slider activado'),
+      value: _bloquearCheck, 
+      onChanged: (valor){
+        setState(() {
+          _bloquearCheck = valor;
+        });
+      }
+      );
+  }
+
+  Widget _crearSwitch() {
+    return SwitchListTile(
+      title: Text('Slider activado'),
+      value: _bloquearCheck, 
+      onChanged: (valor){
+        setState(() {
+          _bloquearCheck = valor;
+        });
+      }
       );
   }
 }
