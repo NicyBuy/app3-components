@@ -69,6 +69,7 @@ class _InputPageState extends State<InputPage> {
     return ListTile(
       title: Text('el nombre del weon es $_nombre'),
       subtitle: Text('el correo es: $_email'),
+      trailing: Text(_opcionSelected),
     );
   }
 
@@ -162,7 +163,7 @@ class _InputPageState extends State<InputPage> {
   }
 
   List<DropdownMenuItem<String>> getOptDrop() {
-    List<DropdownMenuItem<String>> lista = new List(); 
+    List<DropdownMenuItem<String>> lista = new List();
     _prost.forEach((pro) {
       lista.add(DropdownMenuItem(
         child: Text(pro),
@@ -173,14 +174,20 @@ class _InputPageState extends State<InputPage> {
   }
 
   Widget _crearDropdown() {
-    return DropdownButton(
-      value: _opcionSelected,
-      items: getOptDrop(),
-      onChanged: (opt) {
-        setState(() {
-          _opcionSelected = opt;
-        });
-      },
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        SizedBox(width: 30.0,),
+        DropdownButton(
+          value: _opcionSelected,
+          items: getOptDrop(),
+          onChanged: (opt) {
+            setState(() {
+              _opcionSelected = opt;
+            });
+          },
+        )
+      ],
     );
   }
 }
